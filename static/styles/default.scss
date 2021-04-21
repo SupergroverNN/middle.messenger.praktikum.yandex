@@ -1,0 +1,25 @@
+@font-face {
+  font-family: Inter;
+  src: url(../fonts/Inter-Regular.ttf);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  text-decoration: none;
+  outline: 0;
+}
+
+body,
+html,
+#index-root,
+#registration-root,
+#chats-root,
+#root-404,
+#root-500,
+#profile-root {
+  width: 100%;
+  height: 100%;
+}
