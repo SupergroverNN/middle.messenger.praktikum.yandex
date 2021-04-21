@@ -1,6 +1,6 @@
 // make one_chat_block component ?
 const chatsContent = (): string => {
-  return `main
+    return `main.chats
             .chat_list
               .chat_list--profile
                 a(href='./profile.html') Профиль

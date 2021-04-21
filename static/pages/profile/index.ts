@@ -2,8 +2,8 @@ import inputField from '../../components/input';
 import { profileInputsData } from './data';
 
 const profileContent = (): string => {
-    const inputs = inputField(profileInputsData);
-    return `main
+  const inputs = inputField(profileInputsData);
+  return `main.profile
             .main_part
               form.profile_form(action='#' novalidate='')
                 img.profile_form--avatar(src='./sonic.jpg' alt='')

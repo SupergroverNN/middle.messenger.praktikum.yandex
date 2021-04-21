@@ -7,15 +7,15 @@ const indexPage = (): string => {
     link: '',
     text: 'Авторизоваться',
     className: 'button',
-    type: 'submit',
+    type: 'submit'
   });
   const secondButton = button({
     link: './registration.html',
     text: 'Нет аккаунта?',
-    className: 'default',
+    className: 'default'
   });
   const inputs = inputField(indexInputsData);
-  return `main
+  return `main.auth
     form.auth_form(action='#' novalidate='')
       .auth_content
         h4.auth_content--header Вход

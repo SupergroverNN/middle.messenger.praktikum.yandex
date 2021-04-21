@@ -7,11 +7,11 @@ const registrationContent = (): string => {
     link: '#',
     text: 'Регистрация',
     className: 'button',
-    type: 'submit',
+    type: 'submit'
   });
   const secondButton = button({ link: './index.html', text: 'Войти', className: 'default' });
   const inputs = inputField(registrationInputsData);
-  return `main
+  return `main.registration
   form.reg_form(action='#' novalidate='')
     .reg_content
       h4.reg_content--header Регистрация
