@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "npm run copy:images && parcel static/html/index.html -p 3000",
-    "build": "cp -R ./static/images/ ./dist && parcel build static/html/*.html && npm run stylelint:buildfix",
+    "build": "npm run copy:images && parcel build static/html/*.html",
     "copy:images": "cp -R ./static/images/ ./dist",
     "stylelint": "stylelint 'static/**/*{.css,.scss}' 'dist/**/*{.css,.scss}'",
     "stylelint:fix": "stylelint 'static/**/*{.css,.scss}' 'dist/*{.css,.scss}' --fix",
