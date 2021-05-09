@@ -16,9 +16,9 @@ const profileContent = (): string => {
                   .one_form_field_block
                     span.one_form_field_block--title.blue Изменить пароль
                   .one_form_field_block.no_border
-                    a.one_form_field_block--title.red(href='./index.html') Выйти
+                    a.one_form_field_block--title.red(href='./index') Выйти
               .left_part
-                a(href='/chats.html')
+                a(href='/chats')
                   img(src='./send_arrow.svg' alt='back_arrow')`;
 };
 export default profileContent;

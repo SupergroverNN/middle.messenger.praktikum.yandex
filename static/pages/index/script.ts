@@ -24,7 +24,7 @@ export const indexScript = (): void => {
     const errors = form.querySelectorAll('.error').length;
     if (!errors) {
       const link = document.createElement('a');
-      link.href = './chats.html';
+      link.href = './chats';
       link.click();
     }
   });

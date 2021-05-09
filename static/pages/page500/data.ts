@@ -1,5 +1,5 @@
 export const page500Button = {
-  link: './chats.html',
+  link: './chats',
   text: 'Назад к чатам',
-  className: 'error_link',
+  className: 'error_link'
 };

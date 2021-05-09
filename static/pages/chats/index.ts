@@ -1,9 +1,9 @@
 // make one_chat_block component ?
 const chatsContent = (): string => {
-    return `main.chats
+  return `main.chats
             .chat_list
               .chat_list--profile
-                a(href='./profile.html') Профиль
+                a(href='./profile') Профиль
               .chat_list--search
                 input.search_input(type='text' placeholder='Поиск')
                 img.search_image(src='./search.svg' alt='search_icon')

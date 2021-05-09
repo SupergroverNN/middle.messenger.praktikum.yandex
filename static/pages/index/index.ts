@@ -10,7 +10,7 @@ const indexPage = (): string => {
     type: 'submit'
   });
   const secondButton = button({
-    link: './registration.html',
+    link: './registration',
     text: 'Нет аккаунта?',
     className: 'default'
   });

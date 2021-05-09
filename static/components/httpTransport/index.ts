@@ -19,19 +19,19 @@ class HTTPTransport {
     if (data) {
       urlEnd = `${queryStringify(data)}`;
     }
-    return this.request(url + urlEnd, { ...options, method: METHODS.GET }, options.timeout);
+    return this.request(url + urlEnd, { ...options, method: METHODS.GET });
   };
   post = (url: string, options: IOptions): Promise<XMLHttpRequest> => {
-    return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+    return this.request(url, { ...options, method: METHODS.POST });
   };
   put = (url: string, options: IOptions): Promise<XMLHttpRequest> => {
-    return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
+    return this.request(url, { ...options, method: METHODS.PUT });
   };
   delete = (url: string, options: IOptions): Promise<XMLHttpRequest> => {
-    return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
+    return this.request(url, { ...options, method: METHODS.DELETE });
   };
 
-  request = (url: string, options: IOptions, timeout = 5000): Promise<XMLHttpRequest> => {
+  request = (url: string, options: IOptions): Promise<XMLHttpRequest> => {
     const { method, data } = options;
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -46,9 +46,9 @@ class HTTPTransport {
       xhr.ontimeout = reject;
 
       if (method === METHODS.GET || !data) {
-        setTimeout(() => xhr.send(), timeout);
+        xhr.send();
       } else {
-        setTimeout(() => xhr.send(data), timeout);
+        xhr.send(data);
       }
     });
   };
