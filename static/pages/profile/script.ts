@@ -8,6 +8,7 @@ import {
   userLogout
 } from './helpers';
 import validation from '../../js/validation';
+import { sanitizeHTML } from '../../utils';
 
 let isEdit = false;
 
@@ -58,7 +59,7 @@ export const profileScript = (): void => {
         inputs &&
           inputs.forEach((input: HTMLInputElement) => {
             const { name, value } = input;
-            data[name] = value;
+            data[name] = sanitizeHTML(value);
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const parentNode: any = input.parentNode;
             if (parentNode) {
@@ -128,7 +129,7 @@ export const profileScript = (): void => {
           passInputs &&
             passInputs.forEach((input: HTMLInputElement) => {
               const { name, value } = input;
-              data[name] = value;
+              data[name] = sanitizeHTML(value);
             });
           changePassword(data).then(() => {
             modalToggle('.change_password_block');

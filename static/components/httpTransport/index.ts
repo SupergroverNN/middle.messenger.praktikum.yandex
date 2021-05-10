@@ -12,12 +12,15 @@ function queryStringify(data: IData | { [key: string]: string } | any): string {
   return `?${result.join('&')}`;
 }
 const BASE_URL = 'https://ya-praktikum.tech/api/v2';
+const ACCEPTED_DELTA = 500;
 class HTTPTransport {
   urlEnd: string;
   baseUrl: string;
+  lastRequestTime: Date | number;
   constructor(urlEnd: string, baseUrl: string = BASE_URL) {
     this.urlEnd = urlEnd;
     this.baseUrl = baseUrl;
+    this.lastRequestTime = 0;
   }
   get = (url: string, options?: any): Promise<XMLHttpRequest> => {
     let data = null;
@@ -43,6 +46,14 @@ class HTTPTransport {
   request = (url: string, options: IOptions): Promise<XMLHttpRequest> => {
     const { method, data, isFormData } = options;
     return new Promise((resolve, reject) => {
+      const currentTime = new Date();
+      const delta = Number(currentTime) - Number(this.lastRequestTime);
+      console.log('delta', delta);
+      if (delta < ACCEPTED_DELTA) {
+        throw new Error("Don't make DOS attack");
+      } else {
+        this.lastRequestTime = currentTime;
+      }
       const xhr = new XMLHttpRequest();
       const fullUrl = `${this.baseUrl}${this.urlEnd}${url}`;
       xhr.open(method, fullUrl);

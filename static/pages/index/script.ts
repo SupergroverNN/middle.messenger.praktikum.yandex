@@ -1,7 +1,8 @@
 import validation from '../../js/validation';
 import {AuthAPI} from '../../api/auth-api';
+import { sanitizeHTML } from '../../utils';
 
-const api = new AuthAPI();
+const requester = new AuthAPI();
 
 export const indexScript = (): void => {
   const form = document.querySelector('.auth_form') as HTMLFormElement;
@@ -11,7 +12,7 @@ export const indexScript = (): void => {
     const data: {[key: string]: string} = {};
     inputs.forEach((item) => {
       const { name, value } = item;
-      data[name] = value;
+      data[name] = sanitizeHTML(value);
       console.log(`${name}: ${value}`);
     });
     inputs.forEach((input: HTMLInputElement) => {
@@ -26,7 +27,7 @@ export const indexScript = (): void => {
     });
     const errors = form.querySelectorAll('.error').length;
     if (!errors) {
-      api.signin(data).then((res)=> {
+      requester.signin(data).then((res)=> {
         if(res.status === 200) {
           const link = document.createElement('a');
           link.href = './chats';
