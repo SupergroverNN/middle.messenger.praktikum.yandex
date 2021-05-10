@@ -11,44 +11,54 @@ function queryStringify(data: IData | { [key: string]: string } | any): string {
   });
   return `?${result.join('&')}`;
 }
-
+const BASE_URL = 'https://ya-praktikum.tech/api/v2';
 class HTTPTransport {
-  get = (url: string, options: IOptions): Promise<XMLHttpRequest> => {
-    const { data } = options;
+  urlEnd: string;
+  baseUrl: string;
+  constructor(urlEnd: string, baseUrl: string = BASE_URL) {
+    this.urlEnd = urlEnd;
+    this.baseUrl = baseUrl;
+  }
+  get = (url: string, options?: any): Promise<XMLHttpRequest> => {
+    let data = null;
+    if (options) {
+      data = options.data;
+    }
     let urlEnd = '';
     if (data) {
       urlEnd = `${queryStringify(data)}`;
     }
     return this.request(url + urlEnd, { ...options, method: METHODS.GET });
   };
-  post = (url: string, options: IOptions): Promise<XMLHttpRequest> => {
+  post = (url: string, options?: any): Promise<XMLHttpRequest> => {
     return this.request(url, { ...options, method: METHODS.POST });
   };
-  put = (url: string, options: IOptions): Promise<XMLHttpRequest> => {
+  put = (url: string, options?: any): Promise<XMLHttpRequest> => {
     return this.request(url, { ...options, method: METHODS.PUT });
   };
-  delete = (url: string, options: IOptions): Promise<XMLHttpRequest> => {
+  delete = (url: string, options?: any): Promise<XMLHttpRequest> => {
     return this.request(url, { ...options, method: METHODS.DELETE });
   };
 
   request = (url: string, options: IOptions): Promise<XMLHttpRequest> => {
-    const { method, data } = options;
+    const { method, data, isFormData } = options;
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url);
+      const fullUrl = `${this.baseUrl}${this.urlEnd}${url}`;
+      xhr.open(method, fullUrl);
 
       xhr.onload = function () {
         resolve(xhr);
       };
-
+      xhr.withCredentials = true;
+      !isFormData && xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
       xhr.onabort = reject;
       xhr.onerror = reject;
       xhr.ontimeout = reject;
-
       if (method === METHODS.GET || !data) {
         xhr.send();
       } else {
-        xhr.send(data);
+        isFormData ? xhr.send(data) : xhr.send(JSON.stringify(data));
       }
     });
   };

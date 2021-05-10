@@ -1,14 +1,17 @@
 import validation from '../../js/validation';
+import {AuthAPI} from '../../api/auth-api';
+
+const api = new AuthAPI();
 
 export const indexScript = (): void => {
   const form = document.querySelector('.auth_form') as HTMLFormElement;
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const inputs = form.querySelectorAll('input');
-    const data = new FormData(form);
+    const data: {[key: string]: string} = {};
     inputs.forEach((item) => {
       const { name, value } = item;
-      data.append(name, value);
+      data[name] = value;
       console.log(`${name}: ${value}`);
     });
     inputs.forEach((input: HTMLInputElement) => {
@@ -23,9 +26,13 @@ export const indexScript = (): void => {
     });
     const errors = form.querySelectorAll('.error').length;
     if (!errors) {
-      const link = document.createElement('a');
-      link.href = './chats';
-      link.click();
+      api.signin(data).then((res)=> {
+        if(res.status === 200) {
+          const link = document.createElement('a');
+          link.href = './chats';
+          link.click();
+        }
+      });
     }
   });
   form.addEventListener(

@@ -1,16 +1,18 @@
 import { IElement } from './../../js/validation';
 import validation from '../../js/validation';
+import {AuthAPI} from '../../api/auth-api';
 
+const api = new AuthAPI();
 // mb make universal script with querySelector?
 export const registrationScript = (): void => {
   const form = document.querySelector('.reg_form') as HTMLFormElement;
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const inputs = form.querySelectorAll('input');
-    const data = new FormData(form);
+    const data: {[key: string]: string} = {};
     inputs.forEach((item) => {
       const { name, value } = item;
-      data.append(name, value);
+      data[name] = value;
       console.log(`${name}: ${value}`);
     });
     inputs.forEach((input: IElement) => {
@@ -23,6 +25,12 @@ export const registrationScript = (): void => {
         }
       }
     });
+    const errors = form.querySelectorAll('.error').length;
+    if (!errors) {
+      console.log('no errors, get request');
+      console.log('data', data);
+      api.signup(data);
+    }
   });
   form.addEventListener(
     'focus',

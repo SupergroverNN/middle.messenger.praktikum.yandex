@@ -31,12 +31,14 @@ const validation = (e: IElement, type?: string): boolean => {
       // eslint-disable-next-line no-useless-escape
       return /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/.test(value);
     }
-    case 'password': {
+    case 'password':
+    case 'oldPassword':
+    case 'newPassword': {
       return value.length >= 5;
     }
     case 'repeat_password': {
-      const passwordValue = document.querySelector('input[name=password]') as HTMLInputElement;
-      if (passwordValue !== null) {
+      const passwordValue: HTMLInputElement | null = document.querySelector('input[name=password]');
+      if (passwordValue) {
         return passwordValue.value === value;
       }
       return true;

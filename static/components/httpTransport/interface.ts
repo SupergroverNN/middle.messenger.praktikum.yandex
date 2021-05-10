@@ -13,4 +13,5 @@ export interface IOptions {
   data?: IData;
   timeout?: number;
   method: methodValues;
+  isFormData?: boolean;
 }

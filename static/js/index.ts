@@ -41,15 +41,13 @@ router
 .use('/500', Page500)
 .start();
 
-const { pathname } = window.location;
-
 const eventBus = new EventBus();
 
 function runPageScript(): void {
+  const { pathname } = window.location;
   switch (pathname) {
     case '/':
     case '/index': {
-      // delete all another events before add new
       eventBus.on(EVENT_TYPES.AUTH, indexScript);
       eventBus.emit(EVENT_TYPES.AUTH);
       return;
