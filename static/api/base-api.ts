@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export class BaseAPI {
-  create(data: any): void {
+  create(): void {
     throw new Error('Not implemented');
   }
 
@@ -8,11 +7,11 @@ export class BaseAPI {
     throw new Error('Not implemented');
   }
 
-  update(data: any): void {
+  update(): void {
     throw new Error('Not implemented');
   }
 
-  delete(data: any): void {
+  delete(): void {
     throw new Error('Not implemented');
   }
 }

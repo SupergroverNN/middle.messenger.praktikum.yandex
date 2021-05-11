@@ -3,7 +3,7 @@ const requester = new ChatAPI();
 import getChatsContent from '../../components/chat';
 import * as pug from 'pug';
 
-export const getChatList = (chatList: HTMLDivElement) => {
+export const getChatList = (chatList: HTMLDivElement): Promise<void | XMLHttpRequest> => {
   return requester.getChats().then((res) => {
     const chatsData = JSON.parse(res.response);
     const chats = pug.render(getChatsContent(chatsData));
@@ -27,11 +27,14 @@ export const changeModalProps = (
   }
 };
 
-export const createChat = (chatList: HTMLDivElement, title: string) => {
+export const createChat = (
+  chatList: HTMLDivElement,
+  title: string
+): Promise<void | XMLHttpRequest> => {
   return requester.createChat({ title }).then(() => getChatList(chatList));
 };
 
-export const addUser = (userId: number, chatId: number) => {
+export const addUser = (userId: number, chatId: number): Promise<void | XMLHttpRequest> => {
   const options = {
     users: [userId],
     chatId
@@ -39,7 +42,7 @@ export const addUser = (userId: number, chatId: number) => {
   return requester.addUser(options);
 };
 
-export const deleteUser = (userId: number, chatId: number) => {
+export const deleteUser = (userId: number, chatId: number): Promise<void | XMLHttpRequest> => {
   const options = {
     users: [userId],
     chatId
@@ -47,6 +50,6 @@ export const deleteUser = (userId: number, chatId: number) => {
   return requester.deleteUser(options);
 };
 
-export const getToken = (chatId: number) => {
+export const getToken = (chatId: number): Promise<void | XMLHttpRequest> => {
   return requester.getToken(chatId);
 };
