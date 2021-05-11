@@ -48,7 +48,6 @@ class HTTPTransport {
     return new Promise((resolve, reject) => {
       const currentTime = new Date();
       const delta = Number(currentTime) - Number(this.lastRequestTime);
-      console.log('delta', delta);
       if (delta < ACCEPTED_DELTA) {
         // eslint-disable-next-line quotes
         console.log("Don't make DOS attack");

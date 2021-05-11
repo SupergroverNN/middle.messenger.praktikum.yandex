@@ -14,7 +14,6 @@ export const registrationScript = (): void => {
     inputs.forEach((item) => {
       const { name, value } = item;
       data[name] = sanitizeHTML(value);
-      console.log(`${name}: ${value}`);
     });
     inputs.forEach((input: IElement) => {
       const parentNode = input.parentNode as HTMLDivElement;

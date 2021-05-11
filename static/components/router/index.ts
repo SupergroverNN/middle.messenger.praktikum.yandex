@@ -133,7 +133,6 @@ class Router {
   go(pathname: string): void {
     this._currentRoute && this._currentRoute.leave();
     this.history.pushState({}, '', pathname);
-    console.log('this.history', this.history);
     this._onRoute(pathname);
   }
 

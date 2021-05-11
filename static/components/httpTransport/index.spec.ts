@@ -14,7 +14,6 @@ describe('Test MyAPI', function () {
     this.requests = [];
     // @ts-ignore
     XMLHttpRequest.onCreate = function (xhr) {
-      console.log('1');
       this.requests.push(xhr);
     }.bind(this);
   });
@@ -30,7 +29,6 @@ describe('Test MyAPI', function () {
     const data = { foo: 'bar' };
     const dataJson = JSON.stringify(data);
     // @ts-ignore
-    console.log('A');
 
     myapi.get('').then((res) => {
       const data = JSON.parse(res.response);
@@ -61,7 +59,6 @@ describe('Test MyAPI', function () {
 
     // @ts-ignore
     myapi.put('', { data }).then((res) => {
-      console.log(res);
       const data = JSON.parse(res.response);
       data.should.deep.equal(data);
       done();
@@ -75,7 +72,6 @@ describe('Test MyAPI', function () {
 
     // @ts-ignore
     myapi.put('', { data }).then((res) => {
-      console.log(res);
       const data = JSON.parse(res.response);
       data.should.deep.equal(data);
       done();
