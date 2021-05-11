@@ -8,6 +8,6 @@
     "lib": ["es2015", "es2017", "dom"],
     "typeRoots": ["./types", "node_modules/@types"]
   },
-  "include": ["static"],
+  "include": ["static", "static/**/*.spec.ts"],
   "exclude": ["dist", "node_modules"]
 }

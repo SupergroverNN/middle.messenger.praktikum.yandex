@@ -46,3 +46,7 @@ export const deleteUser = (userId: number, chatId: number) => {
   };
   return requester.deleteUser(options);
 };
+
+export const getToken = (chatId: number) => {
+  return requester.getToken(chatId);
+};

@@ -4,6 +4,10 @@ import { BaseAPI } from './base-api';
 
 const requester = new HTTPTransport('/chats');
 
+interface IUsers {
+  users: number[];
+  chatId: number;
+}
 export class ChatAPI extends BaseAPI {
   getChats(): Promise<XMLHttpRequest> {
     return requester.get('');
@@ -11,10 +15,13 @@ export class ChatAPI extends BaseAPI {
   createChat(data: IObject): Promise<XMLHttpRequest> {
     return requester.post('', { data });
   }
-  addUser(data: any): Promise<XMLHttpRequest> {
+  addUser(data: IUsers): Promise<XMLHttpRequest> {
     return requester.put('/users', { data });
   }
-  deleteUser(data: any): Promise<XMLHttpRequest> {
+  deleteUser(data: IUsers): Promise<XMLHttpRequest> {
     return requester.delete('/users', { data });
+  }
+  getToken(chatId: number): Promise<XMLHttpRequest> {
+    return requester.post(`/token/${chatId}`);
   }
 }
