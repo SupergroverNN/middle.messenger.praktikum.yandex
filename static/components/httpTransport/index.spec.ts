@@ -30,7 +30,7 @@ describe('Test MyAPI', function () {
     const dataJson = JSON.stringify(data);
     // @ts-ignore
 
-    myapi.get('').then((res) => {
+    myapi.get().then((res) => {
       const data = JSON.parse(res.response);
       data.should.deep.equal(data);
       done();

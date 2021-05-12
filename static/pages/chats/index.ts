@@ -1,4 +1,3 @@
-// make one_chat_block component ?
 const chatsContent = (): string => {
   return `main.chats
             .modal_block_wrapper

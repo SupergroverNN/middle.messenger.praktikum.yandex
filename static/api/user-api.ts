@@ -1,15 +1,15 @@
 import { IObject } from './../pages/profile/helpers';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import HTTPTransport from '../components/httpTransport';
-import { BaseAPI } from './base-api';
 
 const requester = new HTTPTransport('/user');
 
-export class UserAPI extends BaseAPI {
+export class UserAPI {
   changeProfile(data: any): Promise<XMLHttpRequest> {
     const options = {
       data
     };
+    // @ts-ignore
     return requester.put('/profile', options);
   }
   changeAvatar(data: any): Promise<XMLHttpRequest> {
@@ -17,9 +17,11 @@ export class UserAPI extends BaseAPI {
       data,
       isFormData: true
     };
+    // @ts-ignore
     return requester.put('/profile/avatar', options);
   }
   changePassword(data: IObject): Promise<XMLHttpRequest> {
+    // @ts-ignore
     return requester.put('/password', { data });
   }
 }

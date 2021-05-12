@@ -27,7 +27,11 @@ export const registrationScript = (): void => {
     });
     const errors = form.querySelectorAll('.error').length;
     if (!errors) {
-      requester.signup(data);
+      requester.signup(data).then(()=>{
+        const link = document.createElement('a');
+        link.href = './index';
+        link.click();
+      });
     }
   });
   form.addEventListener(

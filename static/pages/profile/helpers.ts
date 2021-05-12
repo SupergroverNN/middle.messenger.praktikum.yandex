@@ -11,10 +11,10 @@ const userService = new UserAPI();
 export const modalToggle = (query: string): void => {
   const modal: HTMLElement | null = document.querySelector(query);
   if (modal) {
-    if (modal.style.display === 'none') {
-      modal.style.display = 'flex';
+    if (modal.classList.contains('hidden')) {
+      modal.classList.remove('hidden');
     } else {
-      modal.style.display = 'none';
+      modal.classList.add('hidden');
     }
   }
 };

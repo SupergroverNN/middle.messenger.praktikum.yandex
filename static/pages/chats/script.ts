@@ -1,3 +1,4 @@
+import { getOneMessage } from './../../components/message/index';
 import {
   addUser,
   changeModalProps,
@@ -10,12 +11,15 @@ import { IElement } from './../../js/validation';
 import validation from '../../js/validation';
 import { modalToggle } from '../profile/helpers';
 import { socketConnection } from '../../api/socket-api';
+import * as pug from 'pug';
 
 import { AuthAPI } from './../../api/auth-api';
 const requester = new AuthAPI();
 
 export const chatsScript = (): void => {
   const messageInput: IElement | null = document.querySelector('.input_message_block--input');
+  const messagesBlock: HTMLDivElement | null = document.querySelector('.messages_block');
+
   const sendButton: HTMLButtonElement | null = document.querySelector(
     '.input_message_block--button'
   );
@@ -40,7 +44,7 @@ export const chatsScript = (): void => {
   }
 
   modalToggle('.modal_block_wrapper');
-
+  modalToggle('.chat_window');
   // initial render chatList
   chatList &&
     getChatList(chatList).then(() => {
@@ -50,6 +54,9 @@ export const chatsScript = (): void => {
           const target: any = e.currentTarget;
           if (target) {
             chatId = Number(target.id);
+            if (chatId !== 0) {
+              modalToggle('.chat_window');
+            }
             requester
               .getUserInfo()
               .then((res) => {
@@ -57,16 +64,16 @@ export const chatsScript = (): void => {
                 userId = userData.id;
               })
               .then(() => {
-                getToken(chatId).then((res) => {
+                getToken(chatId).then((res: any) => {
                   token = JSON.parse(res.response).token;
                   const socket = socketConnection(userId, chatId, token);
                   socket.addEventListener('open', () => {
                     console.log('Соединение установлено');
-
+                    console.log('Получаю старые сообщения');
                     socket.send(
                       JSON.stringify({
-                        content: 'Моё первое сообщение миру!',
-                        type: 'message'
+                        content: '0',
+                        type: 'get old'
                       })
                     );
                   });
@@ -82,9 +89,61 @@ export const chatsScript = (): void => {
                   });
 
                   socket.addEventListener('message', (event: any) => {
-                    console.log('Получены данные', event.data);
-                  });
+                    console.log('А вот и сообщения');
 
+                    const data = JSON.parse(event.data);
+                    console.log('Получены данные. Формат массив?', Array.isArray(data), data);
+
+                    // рендерим собщение \ сообщения
+                    if (messagesBlock) {
+                      if (Array.isArray(data)) {
+                        const list = document.createElement('div');
+                        data.forEach((message) => {
+                          const oneMessage = document.createElement('div');
+                          const content = getOneMessage(message, userId);
+                          oneMessage.innerHTML = pug.render(content);
+                          list.append(oneMessage);
+                        });
+                        messagesBlock.append(list);
+                        // @ts-ignore
+                      } else {
+                        const oneMessage = document.createElement('div');
+                        const content = getOneMessage(data, userId);
+                        oneMessage.innerHTML = pug.render(content);
+                        messagesBlock.append(oneMessage);
+                      }
+                    }
+                  });
+                  if (sendButton && messageInput) {
+                    sendButton.addEventListener('click', (e) => {
+                      e.preventDefault();
+                      const target: any = e.target;
+                      if (target.parentNode !== null) {
+                        const parentNode = target.parentNode;
+                        if (parentNode && messageInput) {
+                          if (
+                            !validation(messageInput, 'input') &&
+                            !parentNode.classList.contains('error')
+                          ) {
+                            parentNode.classList.add('error');
+                          } else if (
+                            (parentNode.classList.contains('error') &&
+                              validation(messageInput, 'input')) ||
+                            validation(messageInput, 'input')
+                          ) {
+                            socket.send(
+                              JSON.stringify({
+                                content: messageInput.value,
+                                type: 'message'
+                              })
+                            );
+                            parentNode.classList.remove('error');
+                            messageInput.value = '';
+                          }
+                        }
+                      }
+                    });
+                  }
                   socket.addEventListener('error', (event: any) => {
                     console.log('Ошибка', event.message);
                   });
@@ -159,22 +218,22 @@ export const chatsScript = (): void => {
       }
     });
 
-  sendButton &&
-    sendButton.addEventListener('click', (e: MouseEvent) => {
-      e.preventDefault();
-      const target: any = e.target;
-      if (target.parentNode !== null) {
-        const parentNode = target.parentNode;
-        if (parentNode && messageInput) {
-          if (!validation(messageInput, 'input') && !parentNode.classList.contains('error')) {
-            parentNode.classList.add('error');
-          } else if (parentNode.classList.contains('error') && validation(messageInput, 'input')) {
-            parentNode.classList.remove('error');
-            messageInput.value = '';
-          } else {
-            messageInput.value = '';
-          }
-        }
-      }
-    });
+  // sendButton &&
+  //   sendButton.addEventListener('click', (e: MouseEvent) => {
+  //     e.preventDefault();
+  //     const target: any = e.target;
+  //     if (target.parentNode !== null) {
+  //       const parentNode = target.parentNode;
+  //       if (parentNode && messageInput) {
+  //         if (!validation(messageInput, 'input') && !parentNode.classList.contains('error')) {
+  //           parentNode.classList.add('error');
+  //         } else if (parentNode.classList.contains('error') && validation(messageInput, 'input')) {
+  //           parentNode.classList.remove('error');
+  //           messageInput.value = '';
+  //         } else {
+  //           messageInput.value = '';
+  //         }
+  //       }
+  //     }
+  //   });
 };

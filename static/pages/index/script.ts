@@ -27,7 +27,8 @@ export const indexScript = (): void => {
     const errors = form.querySelectorAll('.error').length;
     if (!errors) {
       requester.signin(data).then((res)=> {
-        if(res.status === 200) {
+        console.log(JSON.parse(res.response));
+        if(res.status === 200 || JSON.parse(res.response).reason === 'User already in system') {
           const link = document.createElement('a');
           link.href = './chats';
           link.click();

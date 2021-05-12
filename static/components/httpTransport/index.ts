@@ -22,7 +22,7 @@ class HTTPTransport {
     this.baseUrl = baseUrl;
     this.lastRequestTime = 0;
   }
-  get = (url: string, options?: IOptions): Promise<XMLHttpRequest> => {
+  get = (url = '', options?: IOptions): Promise<XMLHttpRequest> => {
     let data = null;
     if (options) {
       data = options.data;
@@ -62,7 +62,9 @@ class HTTPTransport {
         resolve(xhr);
       };
       xhr.withCredentials = true;
-      !isFormData && xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      if (!isFormData) {
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      }
       xhr.timeout = timeout;
       xhr.onabort = reject;
       xhr.onerror = reject;

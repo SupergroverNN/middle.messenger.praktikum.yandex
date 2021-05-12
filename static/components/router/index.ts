@@ -24,13 +24,13 @@ export class Block {
   }
   show(): void {
     if (this._content) {
-      this._content.style.display = 'block';
+      this._content.classList.remove('hidden');
     }
   }
 
   hide(): void {
     if (this._content) {
-      this._content.style.display = 'none';
+      this._content.classList.add('hidden');
     }
   }
 }
