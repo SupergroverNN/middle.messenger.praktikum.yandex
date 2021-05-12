@@ -1,6 +1,7 @@
 import { indexInputsData } from './data';
 import button from '../../components/button';
 import inputField from '../../components/input';
+import link from '../../components/link';
 
 const indexPage = (): string => {
   const mainButton = button({
@@ -9,7 +10,7 @@ const indexPage = (): string => {
     className: 'button',
     type: 'submit'
   });
-  const secondButton = button({
+  const secondButton = link({
     link: './registration',
     text: 'Нет аккаунта?',
     className: 'default'

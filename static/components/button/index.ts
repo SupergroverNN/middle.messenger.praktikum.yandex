@@ -1,10 +1,7 @@
 import { IButton } from './interface';
 
 const button = (options: IButton): string => {
-  const { link, text, className, type } = options;
-  if (type === 'submit') {
-    return `button.buttons_wrapper--${className}(type='submit') ${text}`;
-  }
-  return `a.buttons_wrapper--${className}(href='${link}') ${text}`;
+  const { text, className, type } = options;
+  return `button.buttons_wrapper--${className}${type ? `(type=${type})` : ''} ${text}`;
 };
 export default button;

@@ -1,8 +1,8 @@
 import { page500Button } from './data';
-import button from '../../components/button';
+import link from '../../components/link';
 
 const page500 = (): string => {
-  const mainButton = button(page500Button);
+  const mainButton = link(page500Button);
 
   return `main.error
             .error_block

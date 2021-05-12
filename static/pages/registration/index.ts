@@ -1,6 +1,7 @@
 import { registrationInputsData } from './data';
 import button from '../../components/button';
 import inputField from '../../components/input';
+import link from '../../components/link';
 
 const registrationContent = (): string => {
   const mainButton = button({
@@ -9,7 +10,7 @@ const registrationContent = (): string => {
     className: 'button',
     type: 'submit'
   });
-  const secondButton = button({ link: './index', text: 'Войти', className: 'default' });
+  const secondButton = link({ link: './index', text: 'Войти', className: 'default' });
   const inputs = inputField(registrationInputsData);
   return `main.registration
   form.reg_form(action='#' novalidate='')
