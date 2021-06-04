@@ -1,0 +1,13 @@
+$blue-color: #3369f3;
+$border-color: #eaeaea;
+$main-bg-color: #fff;
+$second-bg-color: #efefef;
+$first-text-color: #999;
+
+@mixin first-type-text {
+  color: $first-text-color;
+  font-weight: 500;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 12px;
+}

@@ -1,0 +1,42 @@
+@import "variables";
+
+.buttons_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  &--button {
+    width: 280px;
+    height: 37px;
+    margin-bottom: 14px;
+    color: white;
+    font-weight: 500;
+    font-size: 13px;
+    font-style: normal;
+    line-height: 34px;
+    letter-spacing: 0;
+    text-align: center;
+    background: $blue-color;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  &--default {
+    color: $blue-color;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 11px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  &--error_link {
+    margin-top: 39px;
+    color: $blue-color;
+    font-size: 11px;
+    text-decoration: none;
+  }
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "lib": ["es2015", "es2017", "dom"],
+    "typeRoots": ["./types", "node_modules/@types"]
+  },
+  "include": ["static", "static/**/*.spec.ts"],
+  "exclude": ["dist", "node_modules"]
+}
