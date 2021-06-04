@@ -32,7 +32,7 @@ README — первое, что прочитает пользователь, к�
 Ссылка на [проект](https://yandex-praktikum-sprint1-supergrovernn.netlify.app/) в Netlify 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9b58bd67-7e87-4617-a0d0-f84e5030ab01/deploy-status)](https://app.netlify.com/sites/yandex-praktikum-sprint1-supergrovernn/deploys)
 
-pull request https://github.com/SupergroverNN/middle.messenger.praktikum.yandex/pull/2
+pull request https://github.com/SupergroverNN/middle.messenger.praktikum.yandex/pull/3
 
 ## Downloading
 
