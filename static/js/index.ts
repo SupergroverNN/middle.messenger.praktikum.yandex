@@ -1,6 +1,8 @@
 import * as pug from 'pug';
 import EventBus from '../components/eventBus';
 
+import '../styles/main.scss';
+
 import indexContent from '../pages/index';
 import registrationContent from '../pages/registration';
 import page404 from '../pages/page404';
@@ -12,6 +14,7 @@ import { registrationScript } from '../pages/registration/script';
 import { indexScript } from '../pages/index/script';
 import { chatsScript } from '../pages/chats/script';
 import { profileScript } from '../pages/profile/script';
+
 
 import Router, { Block } from '../components/router';
 
