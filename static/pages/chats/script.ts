@@ -16,6 +16,28 @@ import * as pug from 'pug';
 import { AuthAPI } from './../../api/auth-api';
 const requester = new AuthAPI();
 
+const checkModalDisplay = (
+  chatId: number,
+  target: any,
+  chatWindow: HTMLDivElement | null
+): void => {
+  const chats = document.querySelectorAll('.one_chat_block');
+  if (chatId === 0 || (chatWindow && chatWindow.classList.contains('hidden'))) {
+    modalToggle('.chat_window');
+    target.classList.add('selected_chat');
+  } else if (
+    chatWindow &&
+    !chatWindow.classList.contains('hidden') &&
+    Number(target.id) === chatId
+  ) {
+    modalToggle('.chat_window');
+    target.classList.remove('selected_chat');
+  } else {
+    chats.forEach((item: any) => item.classList.remove('selected_chat'));
+    target.classList.add('selected_chat');
+  }
+};
+
 export const chatsScript = (): void => {
   const messageInput: IElement | null = document.querySelector('.input_message_block--input');
   const messagesBlock: HTMLDivElement | null = document.querySelector('.messages_block');
@@ -27,6 +49,7 @@ export const chatsScript = (): void => {
   const addUserButton: HTMLButtonElement | null = document.querySelector('.add_user');
   const deleteUserButton: HTMLButtonElement | null = document.querySelector('.remove_user');
   const chatList: HTMLDivElement | null = document.querySelector('.chat_list--chats');
+  const chatWindow: HTMLDivElement | null = document.querySelector('.chat_window');
   const modalBlock: HTMLDivElement | null = document.querySelector('.modal_block_wrapper');
   let modalBlockInput: HTMLInputElement | null = null;
   let modalBlockButton: HTMLButtonElement | null = null;
@@ -53,10 +76,8 @@ export const chatsScript = (): void => {
         chat.addEventListener('click', (e) => {
           const target: any = e.currentTarget;
           if (target) {
+            checkModalDisplay(chatId, target, chatWindow);
             chatId = Number(target.id);
-            if (chatId !== 0) {
-              modalToggle('.chat_window');
-            }
             requester
               .getUserInfo()
               .then((res) => {
@@ -97,6 +118,7 @@ export const chatsScript = (): void => {
                     // рендерим собщение \ сообщения
                     if (messagesBlock) {
                       if (Array.isArray(data)) {
+                        messagesBlock.innerHTML = '';
                         const list = document.createElement('div');
                         data.forEach((message) => {
                           const oneMessage = document.createElement('div');

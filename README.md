@@ -26,10 +26,19 @@ README — первое, что прочитает пользователь, к�
  - Внедрен HTTP API чатов, авторизации и пользователей
  - Проект защищен от XSS и DOS
 
+В спринте 4 был добавлен  был добавлен такой функционал как:
+ - Добавлен и сконфигурирован Webpack
+ - Настроен Dockerfile для создания контейнера с приложением
+ - Размещен docker-образ на Heroku
+ - Настроен precommit
+ - Проведет аудит пакетов и приведен в актуальное и безопасное состояние (насколько это было возможно)
+
 
 Ссылка на [figma](https://www.figma.com/file/24EUnEHGEDNLdOcxg7ULwV/Chat?node-id=0%3A1) с макетами чата.
 
-Ссылка на [проект](https://yandex-praktikum-sprint1-supergrovernn.netlify.app/) в Netlify 
+Ссылка на проект в [Heroku](https://supergrover-app.herokuapp.com)
+
+Ссылка на проект в [Netlify](https://yandex-praktikum-sprint1-supergrovernn.netlify.app/) 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9b58bd67-7e87-4617-a0d0-f84e5030ab01/deploy-status)](https://app.netlify.com/sites/yandex-praktikum-sprint1-supergrovernn/deploys)
 
 pull request https://github.com/SupergroverNN/middle.messenger.praktikum.yandex/pull/3

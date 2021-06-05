@@ -27,11 +27,12 @@ export const registrationScript = (): void => {
     });
     const errors = form.querySelectorAll('.error').length;
     if (!errors) {
-      requester.signup(data).then(()=>{
-        const link = document.createElement('a');
-        link.href = './index';
-        link.click();
-      });
+      requester.logout().then(()=>requester.signup(data))
+      .then(res=>{
+        if(res.status && res.status === 200) {
+          alert('Успешная регистрация');
+        }
+      }).catch(err => console.log('err', err));
     }
   });
   form.addEventListener(
