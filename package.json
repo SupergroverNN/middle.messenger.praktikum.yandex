@@ -67,7 +67,8 @@
     "stylelint:buildfix": "stylelint 'dist/*{.css,.scss}' --fix",
     "lint": "eslint --debug static/**/*.ts",
     "test": "./node_modules/.bin/mocha",
-    "start:server": "cross-env NODE_ENV=production webpack serve --host 0.0.0.0 --port 3000 --mode production"
+    "start:server": "cross-env NODE_ENV=production webpack serve --host 0.0.0.0 --port 3000 --mode production",
+    "deploy": "heroku container:push web && heroku container:release web"
   },
   "repository": {
     "type": "git",
